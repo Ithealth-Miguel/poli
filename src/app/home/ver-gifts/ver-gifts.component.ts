@@ -93,7 +93,7 @@ export class VerGiftsComponent implements OnInit,AfterViewInit,OnDestroy {
     }
   }
 
-  async eliminar(ele:any,index:any) {
+  async eliminar(index:any,dato:any) {
     const alert = await this.alertController.create({
       mode:'ios',
       message: '¿Desea guardar eliminar el gift?',
@@ -111,10 +111,15 @@ export class VerGiftsComponent implements OnInit,AfterViewInit,OnDestroy {
           text: 'Si, gracias',
           id: 'confirm-button',
           handler: () => {
-            this.giftsGuardado.splice(index,1)
-            this.gifts.splice(index,1)    
-        
-            localStorage.setItem('ids',JSON.stringify(this.giftsGuardado));
+            if(dato === 1){
+              this.giftsGuardado.splice(index,1)
+              this.gifts.splice(index,1)    
+              localStorage.setItem('ids',JSON.stringify(this.giftsGuardado));
+              return
+            }
+            this.stikerGuardado.splice(index,1)
+            this.stikers.splice(index,1)    
+            localStorage.setItem('idsStiker',JSON.stringify(this.stikerGuardado));
           }
         }
       ]
