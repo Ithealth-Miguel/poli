@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { Subject, Subscription } from 'rxjs';
 import { ObtenerGiftsService } from '../service/obtener-gifts.service';
+import { ObtenerStikersService } from '../service/obtener-stiker.service';
 
 @Component({
   selector: 'app-ver-gifts',
@@ -12,35 +13,58 @@ import { ObtenerGiftsService } from '../service/obtener-gifts.service';
 export class VerGiftsComponent implements OnInit,AfterViewInit,OnDestroy {
 
   giftsGuardado:any[]=[];
+  stikerGuardado:any[]=[];
   gifts:any[]=[];
+  stikers:any[]=[];
+
+  verGift:boolean=false;
+  verStikers:boolean=false;
 
   public subscriber: Subscription;
 
   constructor(private router: Router,
               private obtenerGiftsService:ObtenerGiftsService,
+              private obtenerStikersService:ObtenerStikersService,
               private alertController: AlertController,) { }
   ngOnDestroy(): void {
     
   }
   ngAfterViewInit(): void {
-    this.datos();
+    this.datosGift();
+    this.datosStiker()
   }
 
   ngOnInit() {
     this.subscriber = this.router.events
       .subscribe((event) => {
           if(event['url'] === '/home/vergift'){
-            this.datos();
+            this.datosGift();
+            this.datosStiker()
           }
     });
   }
   
   navigate(){
     this.router.navigateByUrl(`home`)
-  
   }
 
-  datos(){
+  navegarGaleria(num:number){
+    this.verGift = false;
+    this.verStikers = false
+    switch (num) {
+      case 1:
+        this.verGift = true;
+        break;
+      case 2:
+        this.verStikers = true
+        break;
+    
+      default:
+        break;
+    }
+  }
+
+  datosGift(){
     if(localStorage.getItem('ids')){
       this.giftsGuardado = JSON.parse(localStorage.getItem('ids'));
       this.giftsGuardado.forEach(resp =>{
@@ -52,7 +76,21 @@ export class VerGiftsComponent implements OnInit,AfterViewInit,OnDestroy {
         })
       })
     }
-
+  }
+  datosStiker(){
+    if(localStorage.getItem('idsStiker')){
+      this.stikerGuardado = JSON.parse(localStorage.getItem('idsStiker'));
+      this.stikerGuardado.forEach(resp =>{
+        this.obtenerStikersService.traerStikersGuardado(resp)
+        .subscribe((resp:any) =>{
+          console.log(resp);
+          
+          if(!this.stikers.includes(resp.data.images.downsized.url)){
+            this.stikers.push(resp.data.images.downsized.url);
+          }
+        })
+      })
+    }
   }
 
   async eliminar(ele:any,index:any) {

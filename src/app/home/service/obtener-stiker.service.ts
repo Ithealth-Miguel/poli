@@ -4,18 +4,18 @@ import { environment } from '../../../environments/environment';
 @Injectable({
   providedIn: 'root'
 })
-export class ObtenerGiftsService {
+export class ObtenerStikersService {
 
   private apiKey = environment.apiKey;
   private api = environment.api;
 
   constructor(private  _http:HttpClient) { }
 
-  traerGisft(palabra:string){
-    return this._http.get(`${this.api}gifs/search?q=${palabra}&api_key=${this.apiKey}&limit=10`)
+  traerStikers(palabra:string){
+    return this._http.get(`${this.api}stickers/search?q=${palabra}&api_key=${this.apiKey}&limit=10`)
   }
-  traerGisftGuardado(id:any){
-    return this._http.get(`${this.api}gifs/${id}?api_key=${ this.apiKey}`)
+  traerStikersGuardado(id:any){
+    return this._http.get(`${this.api}content/${id}?api_key=${ this.apiKey}`)
   }
 
 

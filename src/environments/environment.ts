@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   apiKey:'E44F9W8zKkRjN0xAHzWYnN0KroqMguaK',
-  api:'https://api.giphy.com/v1/gifs/'
+  api:'https://api.giphy.com/v1/'
 };
 
 /*

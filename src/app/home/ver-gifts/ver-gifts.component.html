@@ -16,11 +16,38 @@
   </ion-header>
 
   <div id="container" style="padding:20px;" >
-    <div *ngFor="let item of gifts;index as i" style="width:100% ; height: auto; display: flex;flex-wrap:wrap;justify-content: end;">
-      <ion-icon (click)="eliminar(item,i)" name="trash-outline" color="danger" style="font-size: 35px;"></ion-icon>
-      <div style="border-radius:10px; border: 1px solid white;width:100%;height:30vh;margin-top:10px; margin-bottom:10px ;">
-        <img style="width:100%;height: 100%; border-radius:10px ;" [src]="item" alt="">
+    <div *ngIf="!verGift && !verStikers">
+      <div style="width:100% ; height: auto; display: flex;flex-wrap:wrap;justify-content: start;">
+        <h2>Ver gifts</h2>
+        <div style="border-radius:10px; border: 1px solid white;width:100%;height:30vh;margin-top:10px; margin-bottom:10px ;">
+          <img (click)="navegarGaleria(1)" style="width:100%;height: 100%; border-radius:10px ;" [src]="gifts[0]" alt="">
+        </div>
+      </div>
+      <div style="width:100% ; height: auto; display: flex;flex-wrap:wrap;justify-content: start;">
+        <h2>Ver Stiker</h2>
+        <div style="border-radius:10px; border: 1px solid white;width:100%;height:30vh;margin-top:10px; margin-bottom:10px ;">
+          <img (click)="navegarGaleria(2)" style="width:100%;height: 100%; border-radius:10px ;" [src]="stikers[0]" alt="">
+        </div>
       </div>
     </div>
+    <ng-container *ngIf="verGift">      
+      <ion-icon (click)="verGift = !verGift" name="return-up-back-outline" style="margin-right:10px ; font-size:40px; background: rebeccapurple; padding: 3px; border-radius: 2px;" ></ion-icon>
+      <div *ngFor="let item of gifts;index as i" style="width:100% ; height: auto; display: flex;flex-wrap:wrap;justify-content: end;">
+        <ion-icon (click)="eliminar(item,i)" name="trash-outline" color="danger" style="font-size: 35px;"></ion-icon>
+        <div style="border-radius:10px; border: 1px solid white;width:100%;height:30vh;margin-top:10px; margin-bottom:10px ;">
+          <img style="width:100%;height: 100%; border-radius:10px ;" [src]="item" alt="">
+        </div>
+      </div>
+    </ng-container>
+    <ng-container *ngIf="verStikers">      
+      <ion-icon (click)="verStikers = !verStikers" name="return-up-back-outline" style="margin-right:10px ; font-size:40px; background: rebeccapurple; padding: 3px; border-radius: 2px;" ></ion-icon>
+      <div *ngFor="let item of stikers;index as i" style="width:100% ; height: auto; display: flex;flex-wrap:wrap;justify-content: end;">
+        <ion-icon (click)="eliminar(item,i)" name="trash-outline" color="danger" style="font-size: 35px;"></ion-icon>
+        <div style="border-radius:10px; border: 1px solid white;width:100%;height:30vh;margin-top:10px; margin-bottom:10px ;">
+          <img style="width:100%;height: 100%; border-radius:10px ;" [src]="item" alt="">
+        </div>
+      </div>
+    </ng-container>
+    
   </div>
 </ion-content>

@@ -16,6 +16,10 @@ const routes: Routes = [
     path: 'vergift',
     loadChildren:()=>import('../home/ver-gifts/ver-gifts.module').then(m=>m.VerGiftsModule)
   },
+  {
+    path: 'buscarStiker',
+    loadChildren:()=>import('../home/buscar-stikers/buscar-stikers.module').then(m=>m.BuscarStikersModule)
+  },
   // {
   //   path:'',
   //   redirectTo:''
